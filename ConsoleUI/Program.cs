@@ -12,169 +12,193 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-
-
-
-            //List<Color> colors = new List<Color>()
-            //{
-            //    new Color{ColorId = 1 , ColorName = "Kırmızı"},
-            //    new Color{ColorId = 2 , ColorName = "Beyaz"},     //Database'den SİLİNDİ!!
-            //    new Color{ColorId = 3 , ColorName = "Siyah"},
-            //    new Color{ColorId = 4 , ColorName = "Sarı"},
-            //    new Color{ColorId = 5 , ColorName = "Turuncu"}
-            //};
-
-            //List<Brand> brands = new List<Brand>
-            //{
-            //    new Brand{BrandId = 1 , BrandName = "BMW"},
-            //    new Brand{BrandId = 2 , BrandName = "Bugatti"},
-            //    new Brand{BrandId = 3 , BrandName = "Mercedes"},
-            //    new Brand{BrandId = 4 , BrandName = "Aston Martin"}   //Database'den SİLİNDİ!!
-            //};
-
-            //    List<Car> _car = new List<Car>
-            //{
-
-            //    new Car{CarId = 1 , BrandId = 1 , CarName = "i8" , ColorId = 1 , ModelYear = 2010 , DailyPrice = 200000 , Description = "280 bin kilometrede, memurdan satılık." },
-            //    new Car{CarId = 2 , BrandId = 1 , CarName = "i3" , ColorId = 4 , ModelYear = 2015 , DailyPrice = 150000 , Description = "100bin kilometrede, öğretmen kullanmıştır." }, Database'den SİLİNDİ!!
-            //    new Car{CarId = 3 , BrandId = 2 , CarName = "Chiron" , ColorId = 3 , ModelYear = 2018 , DailyPrice = 175000 , Description = "Kusursuz araç..."},
-            //    new Car{CarId = 4 , BrandId = 3 , CarName = "Rapide" , ColorId = 5 , ModelYear = 2018 , DailyPrice = 183000 , Description = "Taksi çıkması...."},
-            //    new Car{CarId = 5 , BrandId = 3 , CarName = "EQS" , ColorId = 3 , ModelYear = 2017 , DailyPrice = 182000 , Description = "Hasar kayıtlı araç..."}
-            //}; 
-
+            
             //InMemoryTest();
-            //ColorAddTest(colors);
+            //ColorAddTest(new Color { ColorName="Mavi"});
             //ColorGetAllTest();
             //ColorGetByIdTest();
             //ColorUpdateTest();
             //ColorDeleteTest();
 
-            //BrandAddTest(brands);
+            //BrandAddTest(new Brand {BrandName= "Volkswagen" }) ;
             //BrandGetAllTest();
             //BrandGetByIdTest();
             //BrandUpdateTest();
             //BrandDeleteTest();
 
-            //CarAddTest(_car);
+            //CarAddTest(new Car() {BrandId = 2, CarName = "A3", ColorId = 4, ModelYear = 2015, DailyPrice = 1200, Description = "Motor Hacmi: 1401 - 1600 cm3 / Vites: Otomatik / Yakıt: Dizel / Kasa Tipi: Sedan" });
             //CarGetAllTest();
             //CarGetCarsByBrandIdTest();
             //CarGetCarsByColorIdTest();
             //CarUpdateTest();
             //CarDeleteTest();
+            //CarGetDetailDtosTest();
+
 
             CarManager carManager = new CarManager(new EfCarDal());
+            var result = carManager.GetById(4);
+            Console.WriteLine( result.Data.CarName + " / " + result.Message);
+
+        }
+
+        private static void CarGetDetailDtosTest()
+        {
+            CarManager carManager = new CarManager(new EfCarDal());
             var result = carManager.GetDetailDtos();
-            foreach (var car in result )
+            foreach (var car in result.Data)
             {
                 Console.WriteLine(car.BrandName + " / " + car.CarName + " / " + car.ColorName);
             }
-
-
-
-
+            Console.WriteLine(result.Message);
         }
 
         private static void CarDeleteTest()
         {
             CarManager carManager6 = new CarManager(new EfCarDal());
-            var deletedCar = new Car { CarId = 2, BrandId = 1, CarName = "i3", ColorId = 4, ModelYear = 2015, DailyPrice = 150000, Description = "100bin kilometrede, öğretmen kullanmıştır." };
-            carManager6.Delete(deletedCar);
+            var deletedCar = new Car 
+            { 
+                BrandId = 2, 
+                CarName = "A3", 
+                ColorId = 4, 
+                ModelYear = 2015, 
+                DailyPrice = 1200, 
+                Description = "Motor Hacmi: 1401 - 1600 cm3 / Vites: Otomatik / Yakıt: Dizel / Kasa Tipi: Sedan" 
+            };
+            var result = carManager6.Delete(deletedCar);
+            Console.WriteLine(result.Message);
         }
 
         private static void CarUpdateTest()
         {
+            //Tüm car listesi güncellendi!!!
             CarManager carManager5 = new CarManager(new EfCarDal());
-            var updatedCar = new Car { CarId = 5, BrandId = 3, CarName = "SLS AMG", ColorId = 4, ModelYear = 2020, DailyPrice = 432000, Description = "THY personelinden satılık...." };
-            carManager5.Update(updatedCar);
+            var updatedCar = new Car 
+            { 
+                CarId = 3, 
+                BrandId = 2, 
+                CarName = "A8", 
+                ColorId = 3, 
+                ModelYear = 2015, 
+                DailyPrice = 2500, 
+                Description = "Motor Hacmi: 2501 - 3000 cm3 / Vites: Otomatik / Yakıt: Benzin / Kasa Tipi: Sedan" 
+            };
+            var result = carManager5.Update(updatedCar);
+            Console.WriteLine(result.Message);
+            
         }
 
         private static void CarGetCarsByColorIdTest()
         {
             CarManager carManager4 = new CarManager(new EfCarDal());
-            foreach (var car in carManager4.GetCarsByColorId(3))
+            var result = carManager4.GetCarsByColorId(3);
+            foreach (var car in result.Data)
             {
                 Console.WriteLine(car.CarName);
             }
+            Console.WriteLine(result.Message);
         }
 
         private static void CarGetCarsByBrandIdTest()
         {
             CarManager carManager3 = new CarManager(new EfCarDal());
-            foreach (var car in carManager3.GetCarsByBrandId(1))
+            var result = carManager3.GetCarsByBrandId(1);
+            foreach (var car in result.Data)
             {
                 Console.WriteLine(car.CarName);
             }
+            Console.WriteLine(result.Message);
         }
 
         private static void CarGetAllTest()
         {
             CarManager carManager2 = new CarManager(new EfCarDal());
-            foreach (var car in carManager2.GetAll())
+            var result = carManager2.GetAll();
+            foreach (var car in result.Data)
             {
                 Console.WriteLine(car.CarName);
             }
         }
 
-        private static void CarAddTest(List<Car> _car)
+        private static void CarAddTest(Car _car)
         {
             CarManager carManager1 = new CarManager(new EfCarDal());
-            foreach (var car in _car)
-            {
-                carManager1.Add(car);
-            }
+            var result = carManager1.Add(_car);
+            Console.WriteLine(result.Message);
+            
         }
 
         private static void BrandDeleteTest()
         {
             BrandManager brandManager5 = new BrandManager(new EfBrandDal());
-            var deletedBrand = new Brand { BrandId = 4, BrandName = "Aston Martin" };
-            brandManager5.Delete(deletedBrand);
+            var deletedBrand = new Brand 
+            { 
+                BrandId = 4, 
+                BrandName = "Aston Martin" 
+            };
+            var result = brandManager5.Delete(deletedBrand);
+            Console.WriteLine(result.Message);
         }
 
         private static void BrandUpdateTest()
         {
             BrandManager brandManager4 = new BrandManager(new EfBrandDal());
-            var updatedBrand = new Brand { BrandId = 2, BrandName = "Tofaş" };
-            brandManager4.Update(updatedBrand);
+            var updatedBrand = new Brand 
+            { 
+                BrandId = 2, 
+                BrandName = "Audi" 
+            };
+            var result = brandManager4.Update(updatedBrand);
+            Console.WriteLine(result.Message);
         }
 
         private static void BrandGetByIdTest()
         {
             BrandManager brandManager3 = new BrandManager(new EfBrandDal());
             var result = brandManager3.GetById(3);
-            Console.WriteLine(result.BrandName);
+            Console.WriteLine(result.Data.BrandName);
+            Console.WriteLine(result.Message);
         }
 
         private static void BrandGetAllTest()
         {
             BrandManager brandManager2 = new BrandManager(new EfBrandDal());
-            foreach (var brand in brandManager2.GetAll())
+            var result = brandManager2.GetAll();
+            foreach (var brand in result.Data)
             {
                 Console.WriteLine(brand.BrandName);
             };
+            Console.WriteLine(result.Message);
         }
 
-        private static void BrandAddTest(List<Brand> brands)
+        private static void BrandAddTest(Brand brand)
         {
             BrandManager brandManager1 = new BrandManager(new EfBrandDal());
-            foreach (var brand in brands)
-            {
-                brandManager1.Add(brand);
-            }
+            var result = brandManager1.Add(brand);
+            Console.WriteLine(result.Message);
         }
 
         private static void ColorDeleteTest()
         {
             ColorManager colorManager5 = new ColorManager(new EfColorDal());
-            var deletedColor = new Color { ColorId = 2, ColorName = "Beyaz" };
-            colorManager5.Delete(deletedColor);
+            var deletedColor = new Color 
+            { 
+                ColorId = 2, 
+                ColorName = "Beyaz" 
+            };
+            var result = colorManager5.Delete(deletedColor);
+            Console.WriteLine(result.Message);
         }
 
         private static void ColorUpdateTest()
         {
             ColorManager colorManager4 = new ColorManager(new EfColorDal());
-            var updatedColor = new Color { ColorId = 1, ColorName = "Mavi" };
-            colorManager4.Update(updatedColor);
+            var updatedColor = new Color 
+            { 
+                ColorId = 1, 
+                ColorName = "Kırmızı" 
+            };
+            var result = colorManager4.Update(updatedColor);
+            Console.WriteLine(result.Message);
         }
 
         private static void ColorGetByIdTest()
@@ -182,32 +206,37 @@ namespace ConsoleUI
             ColorManager colorManager3 = new ColorManager(new EfColorDal());
 
             var result = colorManager3.GetById(3);
-            Console.WriteLine(result.ColorName);
+            Console.WriteLine(result.Data.ColorName);
+            Console.WriteLine(result.Message);
         }
 
         private static void ColorGetAllTest()
         {
             ColorManager colorManager2 = new ColorManager(new EfColorDal());
+            var result = colorManager2.GetAll();
 
-            foreach (var color in colorManager2.GetAll())
+            foreach (var color in result.Data)
             {
                 Console.WriteLine(color.ColorName);
             }
+            Console.WriteLine(result.Message);
+
         }
 
-        private static void ColorAddTest(List<Color> colors)
+        private static void ColorAddTest(Color colors)
         {
             ColorManager colorManager1 = new ColorManager(new EfColorDal());
-            foreach (var color in colors)
-            {
-                colorManager1.Add(color);
-            }
+            var result = colorManager1.Add(colors);
+            Console.WriteLine(result.Message);
+
         }
 
         private static void InMemoryTest()
         {
             CarManager carManager = new CarManager(new InMemoryCarDal());
-            foreach (var car in carManager.GetAll())
+            var result = carManager.GetAll();
+
+            foreach (var car in result.Data)
             {
                 Console.WriteLine(car.CarName);
             }
