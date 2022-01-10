@@ -13,7 +13,7 @@ namespace Business.Abstract
         IDataResult<List<User>> GetAll();
         IDataResult<List<User>> GetByFirstName(string firstName);
         IDataResult<List<User>> GetByLastName(string lastName);
-        IDataResult<User> GetById(int id);
+        IDataResult<User> GetById(int userId);
 
         IResult Add(User user);
         IResult Delete(User user);

@@ -12,7 +12,6 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            
             //InMemoryTest();
             //ColorAddTest(new Color { ColorName="Mavi"});
             //ColorGetAllTest();
@@ -33,12 +32,130 @@ namespace ConsoleUI
             //CarUpdateTest();
             //CarDeleteTest();
             //CarGetDetailDtosTest();
+            //CarGetByIdTest();
 
+            /*UserAddTest(new User
+            {
+                FirstName = "Enes",
+                LastName = "Öztürk",
+                Email = "ozturk@gmail.com",
+                Password = "23243324"
+            });*/
 
+            //UserGetAllTest();
+            //UserUpdateTest();
+            //UserDeleteTest();
+            //CustomerAddTest();
+            //CustomerUpdateTest();
+            //CustomerDeleteTest();
+            //CustomerGetDetailDtoTest();
+            
+            //RentalAddTest();
+            //RentalGetRentalDetailDtoTest();
+        }
+
+        private static void RentalGetRentalDetailDtoTest()
+        {
+            RentalManegar rentalManegar = new RentalManegar(new EfRentalDal());
+            var result = rentalManegar.GetRentalDetailDto();
+            foreach (var rental in result.Data)
+            {
+                Console.WriteLine(rental.CompanyName + " / " + rental.FirstName + " " + rental.LastName + " / " + rental.CarName + " / " + rental.BrandName + " / " + rental.ColorName + " / " + "Günlük Fiyat: " + rental.DailyPrice + " / " + " Kiralama tarihi: " + rental.RentDate + " / " + "Teslim Tarihi: " + rental.ReturnDate + " / " + rental.Description);
+            }
+            Console.WriteLine(result.Message);
+        }
+
+        private static void RentalAddTest()
+        {
+            RentalManegar rentalManegar = new RentalManegar(new EfRentalDal());
+            var result = rentalManegar.Add(new Rental
+            {
+                CarId = 3,
+                CustomerId = 1,
+                RentDate = new DateTime(2022,01,10),
+                ReturnDate = new DateTime(2022, 01, 11),
+            });
+            Console.WriteLine(result.Message);
+        }
+
+        private static void CustomerGetDetailDtoTest()
+        {
+            CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
+            var result = customerManager.GetCustomerDetailDto();
+            foreach (var customer in result.Data)
+            {
+                Console.WriteLine(customer.CompanyName + " : " + customer.FirstName);
+            }
+            Console.WriteLine(result.Message);
+        }
+
+        private static void CustomerDeleteTest()
+        {
+            CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
+            var result = customerManager.Delete(new Customer { CustomerId = 5 });
+            Console.WriteLine(result.Message);
+        }
+
+        private static void CustomerUpdateTest()
+        {
+            CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
+            var result = customerManager.Update(new Customer
+            {
+                CustomerId = 2,
+                UserId = 1,
+                CompanyName = "Tan-Car"
+            });
+            Console.WriteLine(result.Message);
+        }
+
+        private static void CustomerAddTest()
+        {
+            CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
+            var result = customerManager.Add(new Customer
+            {
+                UserId = 2,
+                CompanyName = "Öz-Car"
+            });
+            Console.WriteLine(result.Message);
+        }
+
+        private static void UserDeleteTest()
+        {
+            UserManager userMananger = new UserManager(new EfUserDal());
+            var result = userMananger.Delete(new User { UserId = 3 });
+            Console.WriteLine(result.Message);
+        }
+
+        private static void UserUpdateTest()
+        {
+            UserManager userManager = new UserManager(new EfUserDal());
+            var result = userManager.Update(new User { UserId = 3, FirstName = "Aziz", LastName = "Ödemiş", Email = "ödemis@gmail.com", Password = "1232123" });
+            Console.WriteLine(result.Message);
+        }
+
+        private static void UserGetAllTest()
+        {
+            UserManager userManager = new UserManager(new EfUserDal());
+            var result = userManager.GetAll();
+            foreach (var user in result.Data)
+            {
+                Console.WriteLine(user.FirstName + " " + user.LastName + " " + user.Email);
+            }
+            Console.WriteLine(result.Message);
+        }
+
+        private static void UserAddTest(User _user)
+        {
+            UserManager userManager = new UserManager(new EfUserDal());
+            var result = userManager.Add(_user);
+            Console.WriteLine(result.Message);
+        }
+
+        private static void CarGetByIdTest()
+        {
             CarManager carManager = new CarManager(new EfCarDal());
             var result = carManager.GetById(4);
-            Console.WriteLine( result.Data.CarName + " / " + result.Message);
-
+            Console.WriteLine(result.Data.CarName + " / " + result.Message);
         }
 
         private static void CarGetDetailDtosTest()

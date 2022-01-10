@@ -19,7 +19,15 @@ namespace DataAccess.Concrete.EntityFramework
                 var result = from u in context.Users
                              join c in context.Customers
                              on u.UserId equals c.UserId
-                             select new CustomerDetailDto {CustomerId=c.CustomerId,CompanyName=c.CompanyName,FirstName=u.FirstName,LastName=u.LastName,Email=u.Email,Password=u.Password };
+                             select new CustomerDetailDto 
+                             {
+                                 CustomerId=c.CustomerId,
+                                 CompanyName=c.CompanyName,
+                                 FirstName=u.FirstName,
+                                 LastName=u.LastName,
+                                 Email=u.Email,
+                                 Password=u.Password 
+                             };
 
                 return result.ToList();
             }
