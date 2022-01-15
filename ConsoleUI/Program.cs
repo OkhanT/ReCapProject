@@ -49,9 +49,17 @@ namespace ConsoleUI
             //CustomerUpdateTest();
             //CustomerDeleteTest();
             //CustomerGetDetailDtoTest();
-            
+
             //RentalAddTest();
             //RentalGetRentalDetailDtoTest();
+
+            IUserService userService = new UserManager(new EfUserDal());
+            var result = userService.GetByFirstName("Okhan");
+            foreach ( var user in result.Data)
+            {
+                Console.WriteLine(user.FirstName + " / " + user.Email);
+            }
+
         }
 
         private static void RentalGetRentalDetailDtoTest()

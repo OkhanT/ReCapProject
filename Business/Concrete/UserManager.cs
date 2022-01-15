@@ -39,7 +39,7 @@ namespace Business.Concrete
 
         public IDataResult<List<User>> GetByFirstName(string firstName)
         {
-            return new SuccessDataResult<List<User>>(_userDal.GetAll(u=>u.FirstName == firstName));
+            return new SuccessDataResult<List<User>>(_userDal.GetAll(u=>u.FirstName == firstName),Messages.UserListed);
         }
 
         public IDataResult<User> GetById(int userId)
