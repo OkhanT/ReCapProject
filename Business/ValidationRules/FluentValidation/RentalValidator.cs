@@ -1,4 +1,5 @@
-﻿using Entities.Concrete;
+﻿using Business.Constants;
+using Entities.Concrete;
 using FluentValidation;
 using System;
 using System.Collections.Generic;
