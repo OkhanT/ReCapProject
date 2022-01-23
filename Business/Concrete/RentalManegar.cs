@@ -26,19 +26,8 @@ namespace Business.Concrete
         [ValidationAspect(typeof(RentalValidator))]
         public IResult Add(Rental rental)
         {
-            //ReturnDate yoksa araç kiralanmamıştır...
-            var result = rental.ReturnDate;
-            if (result == new DateTime())
-            {
-                return new ErrorResult(Messages.RentalReturnDate);                              
-            }
-            
-            else 
-            {
-                _rentalDal.Add(rental);
-                return new SuccessResult(Messages.RentalAdded); 
-            }
-                             
+            _rentalDal.Add(rental);
+            return new SuccessResult(Messages.RentalAdded);
         }
 
         public IResult Delete(Rental rental)
