@@ -49,5 +49,7 @@ namespace Business.Constants
         public static string RentalListed = "Kiralamalar listelendi.";
         public static string RentalDetailDtoListed = "Kiralamalar detaylı listelendi.";
 
+        public static string CarImageAdded = "Resim yüklendi.";
+        internal static string CarImageLimitError= "Bir araçta en fazla 5 resim olabilir.";
     }
 }
