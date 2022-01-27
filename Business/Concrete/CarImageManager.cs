@@ -2,7 +2,7 @@
 using Business.Constants;
 using Core.Entities;
 using Core.Utilities.Business;
-using Core.Utilities.Helpers.FileHelper;
+using Core.Utilities.Helpers.FileHelpers;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -20,7 +20,7 @@ namespace Business.Concrete
     {
         ICarImageDal _carImageDal;
         IFileHelper _fileHelper;
-        
+                
         public CarImageManager(ICarImageDal carImageDal, IFileHelper fileHelper)
         {
             _carImageDal = carImageDal;
@@ -32,7 +32,7 @@ namespace Business.Concrete
             IResult result = BusinessRules.Run(CheckIfCarImageLimit(carImage.CarId));
             if (result != null)
             {
-                return result;
+                return new ErrorResult(Messages.CarImageLimitError);
             }
             carImage.ImagePath = _fileHelper.Upload(file, PathConstants.ImagesPath);
             carImage.Date = DateTime.Now;
@@ -43,37 +43,73 @@ namespace Business.Concrete
 
         public IResult Delete(CarImage carImage)
         {
-            throw new NotImplementedException();
+            _fileHelper.Delete(PathConstants.ImagesPath + carImage.ImagePath);
+            _carImageDal.Delete(carImage);
+            return new SuccessResult(Messages.CarImageDeleted);
         }
 
         public IDataResult<List<CarImage>> GetAll()
         {
-            throw new NotImplementedException();
+            var result = _carImageDal.GetAll();
+            return new SuccessDataResult<List<CarImage>>(result,Messages.CarImageListed);
         }
 
         public IDataResult<List<CarImage>> GetByCarId(int carId)
         {
-            throw new NotImplementedException();
+            var result = BusinessRules.Run(CheckCarImage(carId));
+            if (result != null)
+            {
+                return new ErrorDataResult<List<CarImage>>(GetDefaultImage(carId).Data, Messages.DefaultImageAdded);
+            }
+            
+            var resultList = _carImageDal.GetAll(c => c.CarId == carId);
+            return new SuccessDataResult<List<CarImage>>(resultList, Messages.CarImageListed);
         }
 
         public IDataResult<CarImage> GetById(int imageId)
         {
-            throw new NotImplementedException();
+            var result = _carImageDal.Get(c=>c.CarImageId==imageId);
+            return new SuccessDataResult<CarImage>(result,Messages.CarImageListed);
         }
 
-        public IResult Update(CarImage carImage)
+        public IResult Update(IFormFile file, CarImage carImage)
         {
-            throw new NotImplementedException();
+            var filePath = PathConstants.ImagesPath + carImage.ImagePath;
+            var result = _fileHelper.Update(file,filePath,PathConstants.ImagesPath);
+            carImage.ImagePath = result;
+            _carImageDal.Update(carImage);
+            return new SuccessResult(Messages.CarImageUpdated);
         }
 
-        public IResult CheckIfCarImageLimit(int carId)
+        private IResult CheckIfCarImageLimit(int carId)
         {
             var result = _carImageDal.GetAll(c=>c.CarId == carId).Count;
             if (result >= 5)
             {
-                return new ErrorResult(Messages.CarImageLimitError);
+                return new ErrorResult();
             }
-            return null;
+            return new SuccessResult();
         }
+        private IDataResult<List<CarImage>> GetDefaultImage(int carId)
+        {
+            List<CarImage> carImage = new List<CarImage>();
+            carImage.Add(new CarImage
+            {
+                CarId = carId,
+                Date = DateTime.Now,
+                ImagePath = "DefaultImage.jpg",
+            });
+            return new SuccessDataResult<List<CarImage>>(carImage);
+        }
+        private IResult CheckCarImage(int carId)
+        {
+            var result = _carImageDal.GetAll(c=>c.CarId == carId).Any();
+            if (!result)
+            {
+                return new ErrorResult();
+            }
+            return new SuccessResult();
+        }
+    
     }
 }

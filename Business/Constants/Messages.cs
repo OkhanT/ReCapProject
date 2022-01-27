@@ -51,5 +51,9 @@ namespace Business.Constants
 
         public static string CarImageAdded = "Resim yüklendi.";
         internal static string CarImageLimitError= "Bir araçta en fazla 5 resim olabilir.";
+        internal static string CarImageListed = "Araç resimleri listelendi.";
+        internal static string DefaultImageAdded = "Varsayılan resim eklendi.";
+        internal static string CarImageUpdated = "Araç resimi güncellendi.";
+        internal static string CarImageDeleted = "Araç resmi silindi.";
     }
 }

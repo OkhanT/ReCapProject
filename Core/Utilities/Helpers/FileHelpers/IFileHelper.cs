@@ -5,12 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.Utilities.Helpers.FileHelper
+namespace Core.Utilities.Helpers.FileHelpers
 {
     public interface IFileHelper
     {
         string Upload(IFormFile formFile, string root );
         void Delete(string filePath);
-        void Update(IFormFile formFile, string filePath, string root);
+        string Update(IFormFile formFile, string filePath, string root);
     }
 }

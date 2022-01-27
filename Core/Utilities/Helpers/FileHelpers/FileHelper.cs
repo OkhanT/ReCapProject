@@ -7,18 +7,25 @@ using System.Text;
 using System.Threading.Tasks;
 using Core.Utilities.Helpers.GuidHelperr;
 
-namespace Core.Utilities.Helpers.FileHelper
+namespace Core.Utilities.Helpers.FileHelpers
 {
     public class FileHelper : IFileHelper
     {
         public void Delete(string filePath)
         {
-            throw new NotImplementedException();
+            if (File.Exists(filePath))
+            {
+                File.Delete(filePath);
+            }
         }
 
-        public void Update(IFormFile formFile, string filePath, string root)
+        public string Update(IFormFile formFile, string filePath, string root)
         {
-            throw new NotImplementedException();
+            if (File.Exists(filePath))
+            {
+                File.Delete(filePath);
+            }
+            return Upload(formFile,root);
         }
 
         public string Upload(IFormFile formFile, string root)
