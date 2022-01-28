@@ -103,12 +103,14 @@ namespace Business.Concrete
         }
         private IResult CheckCarImage(int carId)
         {
-            var result = _carImageDal.GetAll(c=>c.CarId == carId).Any();
-            if (!result)
+            var result = _carImageDal.GetAll(c => c.CarId == carId && c.ImagePath == null).Count;
+            if (result>0)
             {
                 return new ErrorResult();
+                
             }
             return new SuccessResult();
+
         }
     
     }

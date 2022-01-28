@@ -30,7 +30,7 @@ namespace Core.Utilities.Helpers.FileHelpers
 
         public string Upload(IFormFile formFile, string root)
         {
-            if (formFile.Length > 0)
+            if (formFile != null && formFile.Length > 0)
             {
                 if (!Directory.Exists(root))
                 {
@@ -45,7 +45,7 @@ namespace Core.Utilities.Helpers.FileHelpers
                     formFile.CopyTo(fileStream);
                     fileStream.Flush();
                     return filePath;
-                }                
+                }
             }
             return null;
         }
