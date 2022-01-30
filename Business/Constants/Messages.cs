@@ -55,5 +55,6 @@ namespace Business.Constants
         internal static string DefaultImageAdded = "Varsayılan resim eklendi.";
         internal static string CarImageUpdated = "Araç resimi güncellendi.";
         internal static string CarImageDeleted = "Araç resmi silindi.";
+        internal static string ImageIdNotFound = "Doğru sayi giriniz.";
     }
 }
