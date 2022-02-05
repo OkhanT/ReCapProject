@@ -1,5 +1,5 @@
 ﻿using Core.Utilities.Results;
-using Entities.Concrete;
+using Core.Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +14,7 @@ namespace Business.Abstract
         IDataResult<List<User>> GetByFirstName(string firstName);
         IDataResult<List<User>> GetByLastName(string lastName);
         IDataResult<User> GetById(int userId);
+        IDataResult<OperationClaim> GetByClaim(string claim);
 
         IResult Add(User user);
         IResult Delete(User user);

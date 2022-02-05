@@ -2,9 +2,10 @@
 using Business.Concrete;
 using DataAccess.Concrete.EntityFramework;
 using DataAccess.Concrete.InMemory;
-using Entities.Concrete;
+using Core.Entities.Concrete;
 using System;
 using System.Collections.Generic;
+using Entities.Concrete;
 
 namespace ConsoleUI
 {
@@ -137,7 +138,7 @@ namespace ConsoleUI
         private static void UserUpdateTest()
         {
             UserManager userManager = new UserManager(new EfUserDal());
-            var result = userManager.Update(new User { UserId = 3, FirstName = "Aziz", LastName = "Ödemiş", Email = "ödemis@gmail.com", Password = "1232123" });
+            var result = userManager.Update(new User { UserId = 3, FirstName = "Aziz", LastName = "Ödemiş", Email = "ödemis@gmail.com" });
             Console.WriteLine(result.Message);
         }
 

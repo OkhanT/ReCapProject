@@ -1,12 +1,13 @@
 ﻿using Core.DataAccess.EntityFramework;
 using DataAccess.Abstract;
-using Entities.Concrete;
+using Core.Entities.Concrete;
 using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Entities.Concrete;
 
 namespace DataAccess.Concrete.EntityFramework
 {
@@ -25,8 +26,7 @@ namespace DataAccess.Concrete.EntityFramework
                                  CompanyName=c.CompanyName,
                                  FirstName=u.FirstName,
                                  LastName=u.LastName,
-                                 Email=u.Email,
-                                 Password=u.Password 
+                                 Email=u.Email                                  
                              };
 
                 return result.ToList();
