@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Core.Entities.Concrete;
+using Entities.DTOs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -50,11 +52,15 @@ namespace Business.Constants
         public static string RentalDetailDtoListed = "Kiralamalar detaylı listelendi.";
 
         public static string CarImageAdded = "Resim yüklendi.";
-        internal static string CarImageLimitError= "Bir araçta en fazla 5 resim olabilir.";
-        internal static string CarImageListed = "Araç resimleri listelendi.";
-        internal static string DefaultImageAdded = "Varsayılan resim eklendi.";
-        internal static string CarImageUpdated = "Araç resimi güncellendi.";
-        internal static string CarImageDeleted = "Araç resmi silindi.";
-        internal static string ImageIdNotFound = "Doğru sayi giriniz.";
+        public static string CarImageLimitError= "Bir araçta en fazla 5 resim olabilir.";
+        public static string CarImageListed = "Araç resimleri listelendi.";
+        public static string DefaultImageAdded = "Varsayılan resim eklendi.";
+        public static string CarImageUpdated = "Araç resimi güncellendi.";
+        public static string CarImageDeleted = "Araç resmi silindi.";
+        public static string ImageIdNotFound = "Doğru sayi giriniz.";
+        public static string EmailNotFound = "Email bulunamadı.";
+        public static string EmailAlreadyExists = "Email mevcuttur.";
+        public static string ClaimNotFound = "Claim bulunamadı.";
+        public static string ClaimsListed = "Claimler listelendi.";
     }
 }

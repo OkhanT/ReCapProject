@@ -131,14 +131,14 @@ namespace ConsoleUI
         private static void UserDeleteTest()
         {
             UserManager userMananger = new UserManager(new EfUserDal());
-            var result = userMananger.Delete(new User { UserId = 3 });
+            var result = userMananger.Delete(new User { Id = 3 });
             Console.WriteLine(result.Message);
         }
 
         private static void UserUpdateTest()
         {
             UserManager userManager = new UserManager(new EfUserDal());
-            var result = userManager.Update(new User { UserId = 3, FirstName = "Aziz", LastName = "Ödemiş", Email = "ödemis@gmail.com" });
+            var result = userManager.Update(new User { Id = 3, FirstName = "Aziz", LastName = "Ödemiş", Email = "ödemis@gmail.com" });
             Console.WriteLine(result.Message);
         }
 

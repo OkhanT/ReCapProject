@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Entities.DTOs;
 
 namespace Business.Abstract
 {
@@ -14,7 +15,8 @@ namespace Business.Abstract
         IDataResult<List<User>> GetByFirstName(string firstName);
         IDataResult<List<User>> GetByLastName(string lastName);
         IDataResult<User> GetById(int userId);
-        IDataResult<OperationClaim> GetByClaim(string claim);
+        IDataResult<User> GetByEmail(string email);
+        IDataResult<List<UserOperationClaimDetailDto>> GetClaims(User user);
 
         IResult Add(User user);
         IResult Delete(User user);
