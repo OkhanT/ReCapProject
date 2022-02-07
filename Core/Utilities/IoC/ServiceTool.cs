@@ -11,7 +11,7 @@ namespace Core.Utilities.IoC
     {
         public static IServiceProvider ServiceProvider { get; private set; }
 
-        public static IServiceCollection create(this IServiceCollection services)
+        public static IServiceCollection create(IServiceCollection services)
         {
             ServiceProvider = services.BuildServiceProvider();
             return services;
