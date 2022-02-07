@@ -1,4 +1,5 @@
 ﻿using Core.DataAccess.EntityFramework;
+using Core.Entities;
 using Core.Entities.Concrete;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -25,7 +26,7 @@ namespace DataAccess.Concrete.EntityFramework
                              where u.UserId == user.Id
                              select (new UserOperationClaimDetailDto
                              {
-                                 Id=o.Id,
+                                 Id=u.Id,
                                  UserName = us.FirstName,
                                  UserLastName = us.LastName,
                                  Email = us.Email,

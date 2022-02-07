@@ -3,6 +3,7 @@ using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -62,5 +63,10 @@ namespace Business.Constants
         public static string EmailAlreadyExists = "Email mevcuttur.";
         public static string ClaimNotFound = "Claim bulunamadı.";
         public static string ClaimsListed = "Claimler listelendi.";
+        public static string PasswordError = "Parola hatası.";
+        public static string SuccessfulLogin = "Giriş başarılı.";
+        public static string UserRegistered = "Kullanıcı kayıt oldu.";
+        public static string AccessTokenCreated = "Erişim tokenı oluşturuldu.";
+        public static string AuthorizationDenied = "Yetkiniz yok.";
     }
 }

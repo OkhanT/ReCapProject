@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities.DTOs
+namespace Core.Entities
 {
-    public class UserOperationClaimDetailDto 
+    public class UserOperationClaimDetailDto : IDto
     {
         public int Id { get; set; }
         public string UserName { get; set; }

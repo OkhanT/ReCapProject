@@ -73,7 +73,7 @@ namespace Business.Concrete
             var result = _userDal.GetUserOperationClaimDetail(user);
             if (result == null)
             {
-                return new ErrorDataResult<List<UserOperationClaimDetailDto>>(Messages.ClaimNotFound);
+                return new ErrorDataResult<List<UserOperationClaimDetailDto>>(result, Messages.ClaimNotFound);
             }
             return new SuccessDataResult<List<UserOperationClaimDetailDto>>(result, Messages.ClaimsListed);
         }
