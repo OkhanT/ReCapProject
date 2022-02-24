@@ -3,6 +3,9 @@ using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspect.Autofac.Caching;
+using Core.Aspect.Autofac.Logging;
+using Core.Aspect.Autofac.Performance;
+using Core.Aspect.Autofac.Transaction;
 using Core.Aspect.Autofac.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
@@ -40,11 +43,13 @@ namespace Business.Concrete
 
         [SecuredOperation("rental.getall")]
         [CacheAspect]
+        [PerformanceAspect(5)]
         public IDataResult<List<Rental>> GetAll()
         {
             return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll(),Messages.RentalListed);
         }
 
+        [LogAspect(typeof(FileLogger))]
         public IDataResult<List<Rental>> GetByCarId(int carId)
         {
             return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll(r=>r.CarId==carId),Messages.RentalListed);
@@ -76,9 +81,15 @@ namespace Business.Concrete
             {
                 _rentalDal.Update(rental);
                 return new SuccessResult(Messages.RentalUpdated);
-            }
-            
-            
+            }           
+        }
+
+        [TransactionScopeAspect]
+        public IResult TransactionalOperation(Rental rental)
+        {
+            _rentalDal.Update(rental);
+            _rentalDal.Add(rental); 
+            return new SuccessResult(Messages.RentalUpdated);
         }
     }
 }

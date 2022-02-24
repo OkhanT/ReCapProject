@@ -22,5 +22,8 @@ namespace Business.Abstract
 
         IDataResult<List<RentalDetailDto>> GetRentalDetailDto();
 
+        IResult TransactionalOperation(Rental rental);
+
+
     }
 }
